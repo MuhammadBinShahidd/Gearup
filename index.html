@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GearUp</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    body { 
+      background-color: #13131f; 
+      color: #f1f3f9; 
+      font-family: 'Inter', sans-serif; 
+    }
+    .bg-dark { background-color: #0d0d16 !important; }
+    .bg-light { background-color: #1c1c2e !important; color: #f1f3f9; }
+    .bg-danger { background-color: #E43F5A !important; }
+    
+    .btn-danger { background-color: #E43F5A; border-color: #E43F5A; }
+    .btn-danger:hover { background-color: #B92E46; border-color: #B92E46; }
+    .btn-warning { background-color: #FFC857; border-color: #FFC857; color: #1B1B2F; }
+
+    /* Gaming Headings */
+    h1, h2, h5, .navbar-brand { 
+      font-family: 'Rajdhani', sans-serif; 
+      text-transform: uppercase; 
+      letter-spacing: 0.5px; 
+    }
+
+    /* Hover and Dark Mode */
+    .card {
+      background-color: #1c1c2e;
+      color: #f1f3f9;
+      border: 1px solid #2e2e48;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    }
+    .text-muted { color: #a0a0b8 !important; }
+
+    /* Filter Buttons & Cart Drawer Dark Mode */
+    .btn-outline-dark { color: #f1f3f9; border-color: #4a4a6a; }
+    .btn-outline-dark:hover { background-color: #2e2e48; color: #ffffff; }
+    .offcanvas { background-color: #1c1c2e; color: #f1f3f9; }
+    .list-group-item { background-color: #13131f; color: #f1f3f9; border-color: #2e2e48; }
+    .btn-close { filter: invert(1); }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Navbar -->
+  <nav class="navbar navbar-dark bg-dark px-4 sticky-top">
+    <span class="navbar-brand">GearUp</span>
+    <div>
+      <a href="#products" class="text-white text-decoration-none me-3">Products</a>
+      <a href="#about" class="text-white text-decoration-none me-3">About</a>
+      <a href="#contact" class="text-white text-decoration-none">Contact</a>
+      <button class="btn btn-warning btn-sm ms-3" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer">
+        <i class="bi bi-cart3"></i> Cart (<span id="cart-count">0</span>)
+      </button>
+    </div>
+  </nav>
+
+  <!-- 2.  Banner -->
+  <div class="bg-danger text-white text-center py-5">
+    <div class="container py-4">
+      <h1 class="display-4 fw-bold">Level up your setup</h1>
+      <p class="lead">Controllers, headsets, keyboards and more.</p>
+      <a href="#products" class="btn btn-warning btn-lg">Shop now</a>
+    </div>
+  </div>
+
+  <!-- 3. Features -->
+  <div class="bg-light py-4">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-4">
+          <h5><i class="bi bi-truck text-danger me-2"></i>Free shipping</h5>
+          <p class="mb-0">On orders over $50</p>
+        </div>
+        <div class="col-md-4">
+          <h5><i class="bi bi-shield-check text-danger me-2"></i>1-year warranty</h5>
+          <p class="mb-0">On every product</p>
+        </div>
+        <div class="col-md-4">
+          <h5><i class="bi bi-headset text-danger me-2"></i>24/7 support</h5>
+          <p class="mb-0">We're always here to help</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Products filter search -->
+  <div class="container mt-5" id="products">
+    <h2 class="mb-3">Popular products</h2>
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+      <div>
+        <button class="btn btn-dark btn-sm filter-btn" data-category="all">All</button>
+        <button class="btn btn-outline-dark btn-sm filter-btn" data-category="controls">Controls & Input</button>
+        <button class="btn btn-outline-dark btn-sm filter-btn" data-category="audio">Audio & Video</button>
+      </div>
+      <input type="text" id="search-input" class="form-control form-control-sm bg-dark text-white border-secondary" placeholder="Search gear..." style="max-width: 220px;">
+    </div>
+  </div>
+
+  <!-- 5. cards -->
+  <div class="container">
+    <div class="row">
+
+      <!-- Controller -->
+      <div class="col-md-4 mb-4 product-item" data-category="controls">
+        <div class="card">
+          <img src="C:\Users\2603028\Desktop\gearup\images\controller.webp" class="card-img-top" alt="Controller" style="height: 220px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">Controller</h5>
+            <div class="text-warning mb-2 small">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+              <span class="text-muted ms-1">(48)</span>
+            </div>
+            <p class="card-text">$59</p>
+            <button onclick="addToCart('Controller', 59)" class="btn btn-danger">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Headset -->
+      <div class="col-md-4 mb-4 product-item" data-category="audio">
+        <div class="card">
+          <img src="C:\Users\2603028\Desktop\gearup\images\headset.jpg" class="card-img-top" alt="Headset" style="height: 220px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">Headset</h5>
+            <div class="text-warning mb-2 small">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <span class="text-muted ms-1">(64)</span>
+            </div>
+            <p class="card-text">$45</p>
+            <button onclick="addToCart('Headset', 45)" class="btn btn-danger">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Keyboard -->
+      <div class="col-md-4 mb-4 product-item" data-category="controls">
+        <div class="card">
+          <img src="C:\Users\2603028\Desktop\gearup\images\keyboard.webp" class="card-img-top" alt="Keyboard" style="height: 220px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">Keyboard</h5>
+            <div class="text-warning mb-2 small">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+              <span class="text-muted ms-1">(92)</span>
+            </div>
+            <p class="card-text">$79</p>
+            <button onclick="addToCart('Keyboard', 79)" class="btn btn-danger">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mouse -->
+      <div class="col-md-4 mb-4 product-item" data-category="controls">
+        <div class="card">
+          <img src="C:\Users\2603028\Desktop\gearup\images\mouse.jpg" class="card-img-top" alt="Mouse" style="height: 220px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">Mouse</h5>
+            <div class="text-warning mb-2 small">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+              <span class="text-muted ms-1">(31)</span>
+            </div>
+            <p class="card-text">$29</p>
+            <button onclick="addToCart('Mouse', 29)" class="btn btn-danger">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mouse pad -->
+      <div class="col-md-4 mb-4 product-item" data-category="controls">
+        <div class="card">
+          <img src="C:\Users\2603028\Desktop\gearup\images\mousepad.jpg" class="card-img-top" alt="Mouse pad" style="height: 220px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">Mouse pad</h5>
+            <div class="text-warning mb-2 small">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <span class="text-muted ms-1">(115)</span>
+            </div>
+            <p class="card-text">$15</p>
+            <button onclick="addToCart('Mouse pad', 15)" class="btn btn-danger">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Webcam -->
+      <div class="col-md-4 mb-4 product-item" data-category="audio">
+        <div class="card">
+          <img src="C:\Users\2603028\Desktop\gearup\images\webcam.jpg" class="card-img-top" alt="Webcam" style="height: 220px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">Webcam</h5>
+            <div class="text-warning mb-2 small">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+              <span class="text-muted ms-1">(27)</span>
+            </div>
+            <p class="card-text">$39</p>
+            <button onclick="addToCart('Webcam', 39)" class="btn btn-danger">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 6. About -->
+  <div class="bg-light py-5" id="about">
+    <div class="container text-center">
+      <h2 class="mb-3">About GearUp</h2>
+      <p class="lead mx-auto" style="max-width: 600px;">
+        We're a team of gamers who love great gear. Every product in our shop is tested by us
+        before it reaches you, so you only get accessories that actually make your games better.
+      </p>
+    </div>
+  </div>
+
+  <!-- 7. Reviews -->
+  <div class="container py-5">
+    <h2 class="text-center mb-4">What our customers say</h2>
+    <div class="row">
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <p class="card-text">"The controller feels amazing and the battery lasts forever."</p>
+            <h6 class="card-subtitle text-muted">Ali, Lahore</h6>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <p class="card-text">"Great sound on the headset. Delivery was really fast."</p>
+            <h6 class="card-subtitle text-muted">Sara, Karachi</h6>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <p class="card-text">"Best keyboard I've used. Worth every rupee."</p>
+            <h6 class="card-subtitle text-muted">Hamza, Islamabad</h6>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 8. Contact Us -->
+  <div class="bg-light py-5" id="contact">
+    <div class="container">
+      <h2 class="mb-4">Contact us</h2>
+      <form>
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Message</label>
+          <textarea class="form-control" rows="4"></textarea>
+        </div>
+        <button type="button" class="btn btn-danger">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 9. FOOTER -->
+  <footer class="bg-dark text-white text-center p-4">
+    <p class="mb-0">&copy; 2026 GearUp. All rights reserved.</p>
+  </footer>
+
+  <!-- SLIDE-OUT CART DRAWER -->
+  <div class="offcanvas offcanvas-end" id="cartDrawer">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Your Cart</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul id="cart-items" class="list-group mb-3"></ul>
+      <h5>Total: $<span id="cart-total">0</span></h5>
+      <div class="d-grid gap-2 mt-3">
+        <button onclick="checkout()" class="btn btn-danger">Checkout</button>
+        <button onclick="clearCart()" class="btn btn-outline-secondary btn-sm text-white">Clear Cart</button>
+      </div>
+      <div id="checkout-msg" class="alert alert-success mt-3 d-none">
+        Order placed! Thanks for shopping with GearUp.
+      </div>
+    </div>
+  </div>
+
+  <!-- BOOTSTRAP JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- INTERACTIVE STORE SCRIPTS -->
+  <script>
+    // 1. Category Filter Logic
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const category = btn.getAttribute('data-category');
+        document.querySelectorAll('.product-item').forEach(item => {
+          item.style.display = (category === 'all' || item.getAttribute('data-category') === category) ? 'block' : 'none';
+        });
+      });
+    });
+
+    // 2. Live Search Logic
+    document.getElementById('search-input').addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      document.querySelectorAll('.product-item').forEach(item => {
+        const title = item.querySelector('.card-title').innerText.toLowerCase();
+        item.style.display = title.includes(term) ? 'block' : 'none';
+      });
+    });
+
+    // 3. Cart, Clear & Checkout Logic
+    let count = 0, total = 0;
+
+    function addToCart(name, price) {
+      count++;
+      total += price;
+      document.getElementById('cart-count').innerText = count;
+      document.getElementById('cart-total').innerText = total;
+      document.getElementById('checkout-msg').classList.add('d-none');
+      document.getElementById('cart-items').innerHTML += `
+        <li class="list-group-item d-flex justify-content-between">
+          ${name} <span>$${price}</span>
+        </li>`;
+    }
+
+    function clearCart() {
+      count = 0;
+      total = 0;
+      document.getElementById('cart-count').innerText = 0;
+      document.getElementById('cart-total').innerText = 0;
+      document.getElementById('cart-items').innerHTML = '';
+    }
+
+    function checkout() {
+      if (count === 0) return;
+      clearCart();
+      document.getElementById('checkout-msg').classList.remove('d-none');
+    }
+  </script>
+
+</body>
+</html>
